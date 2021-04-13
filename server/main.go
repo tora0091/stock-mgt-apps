@@ -13,6 +13,16 @@ type Profile struct {
 	Body  string `json:"body"`
 }
 
+var profiles []Profile
+
+func init() {
+	profiles = []Profile{
+		Profile{Id: 1, Title: "title 1", Body: "body 1"},
+		Profile{Id: 2, Title: "title 2", Body: "body 2"},
+		Profile{Id: 3, Title: "title 3", Body: "body 3"},
+	}
+}
+
 func main() {
 	r := gin.Default()
 
@@ -34,14 +44,18 @@ func main() {
 		},
 	}))
 
-	profile := []Profile{
-		Profile{Id: 1, Title: "title 1", Body: "body 1"},
-		Profile{Id: 2, Title: "title 2", Body: "body 2"},
-		Profile{Id: 3, Title: "title 3", Body: "body 3"},
+	v1 := r.Group("/api/v1")
+	{
+		v1.GET("/events", func(c *gin.Context) {
+			c.JSON(http.StatusOK, profiles)
+		})
+
+		v1.POST(("/new"), func(c *gin.Context) {
+			profile := Profile{Id: 4, Title: "title 4", Body: "body 4"}
+			profiles = append(profiles, profile)
+			c.JSON(http.StatusOK, profile)
+		})
 	}
 
-	r.GET("/api/v1/events", func(c *gin.Context) {
-		c.JSON(http.StatusOK, profile)
-	})
 	r.Run(":3001")
 }
