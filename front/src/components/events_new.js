@@ -1,11 +1,37 @@
-import { Component } from "react"
+import React, { Component } from "react"
+import { connect } from 'react-redux'
+import { Field, reduxForm } from 'redux-form'
+import { Link } from 'react-router-dom'
+// import { postEvent } from '../action'
 
 class EventsNew extends Component {
+    renderField(field) {
+        const { input, label, type, meta: { touched, error } } = field
+
+        return (<div></div>)
+    }
+
     render() {
         return (
-            <div>here is events new</div>
+            <form>
+                <div><Field label="Title" name="title" type="text" component={this.renderField} /></div>
+                <div><Field label="Body" name="body" type="text" component={this.renderField} /></div>
+                <div>
+                    <input type="submit" value="Submit" disabled={false} />
+                    <Link to="/">Cancel</Link>
+                </div>
+            </form>
         )
     }
 }
 
-export default EventsNew
+// const mapDispatchToProps = ({ postEvent})
+const validate = values => {
+    const errors = {}
+
+    return errors
+}
+
+export default connect(null, null)(
+    reduxForm({ validate, form: 'eventNewForm'})(EventsNew)   
+)
