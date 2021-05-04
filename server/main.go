@@ -17,9 +17,9 @@ var profiles []Profile
 
 func init() {
 	profiles = []Profile{
-		Profile{Id: 1, Title: "title 1", Body: "body 1"},
-		Profile{Id: 2, Title: "title 2", Body: "body 2"},
-		Profile{Id: 3, Title: "title 3", Body: "body 3"},
+		{Id: 1, Title: "title 1", Body: "body 1"},
+		{Id: 2, Title: "title 2", Body: "body 2"},
+		{Id: 3, Title: "title 3", Body: "body 3"},
 	}
 }
 
